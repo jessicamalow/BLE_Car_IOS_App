@@ -2,7 +2,7 @@
 //  AJoyStickViewController.swift
 //  bluetoothcontroller
 //
-//  Created by Jessica Malow on 4/8/21.
+//  Created by Jessica Malow and Nicole Malow on 4/8/21.
 //
 
 import UIKit

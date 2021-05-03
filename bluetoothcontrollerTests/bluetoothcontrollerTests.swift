@@ -2,7 +2,7 @@
 //  bluetoothcontrollerTests.swift
 //  bluetoothcontrollerTests
 //
-//  Created by Jessica Malow on 3/23/21.
+//  Created by Jessica Malow and Nicole Malow on 3/23/21.
 //
 
 import XCTest

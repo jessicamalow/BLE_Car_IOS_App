@@ -2,7 +2,7 @@
 //  ScanTableViewCell.swift
 //  bluetoothcontroller
 //
-//  Created by Jessica Malow on 3/24/21.
+//  Created by Jessica Malow and Nicole Malow on 3/24/21.
 //
 
 import UIKit

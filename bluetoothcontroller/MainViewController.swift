@@ -9,14 +9,14 @@ import UIKit
 import CoreBluetooth
 
 class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate {
-    //Join stick Begin
+
     @IBOutlet var joystickView: UIView!
     
     @IBOutlet var joystickUI: UIView!
-    //Join stick END
+
     static let notificationName = Notification.Name("Joystick")
-    //Auto light begin
-    
+
+    //auto light switching mechanism
     @IBAction func autolightswitch(_ sender: UISwitch) {
         if (sender.isOn == true) {
             light.isEnabled = false;
@@ -38,13 +38,6 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
     let BLECharacteristicW = "6E400003-B5A3-F393-E0A9-E50E24DCCA9E"
     
     // MARK: - CBCentralManagerDelegate Methods
-//    func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
-//        mainPeripheral = nil
-//        customiseNavigationBar()
-//        print("Disconnected" + peripheral.name!)
-//    }
-    
-    
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         print(central.state)
     }
@@ -68,11 +61,6 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
                     peripheral.discoverCharacteristics(nil, for: service)
                 }
                 
-                //Bluno Service
-//                if (service.uuid.uuidString == BLEService) {
-//                    peripheral.discoverCharacteristics(nil, for: service)
-//                }
-                
             }
         }
         
@@ -80,10 +68,6 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
         print(service.characteristics![0])
         //Found service
         print(service.characteristics![1])
-//        print(mainCharacteristic == service.characteristics![0])
-            //get device name
-//            if (service.uuid.uuidString == BLEService) {
-                
                 for characteristic in service.characteristics! {
                     
                     if (characteristic.uuid.uuidString == BLECharacteristic) {
@@ -95,7 +79,7 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
                         
                         peripheral.setNotifyValue(true, for: characteristic)
                         print("setNotify")
-                        print("Found Bluno Data Characteristic")
+                        print("Found Data Characteristic")
                     }
                     if (characteristic.uuid.uuidString == BLECharacteristicW) {
                         //we'll save the reference, we need it to write data
@@ -106,13 +90,10 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
                         
                         peripheral.setNotifyValue(true, for: characteristic)
                         print("setNotify")
-                        print("Found Bluno Data Characteristic")
+                        print("Found Data Characteristic")
                     }
                     
                 }
-                
-//            }
-            
         }
     //Encoder
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
@@ -164,14 +145,11 @@ if (characteristic.uuid.uuidString == BLECharacteristicW) {
 
     @IBAction func sendHelloTapped(_ sender: Any) {
         writeOutgoingValue(data: "honk")
-//        mainPeripheral!.discoverServices([CBUUIDs.BLEService_UUID])
         
         let honk = "honk"
                 let dataToSend = honk.data(using: String.Encoding.utf8)
                 if (mainPeripheral != nil) {
-                    print("datasent")
-//                    print(mainCharacteristic)
-//                    print(mainCharacteristicW)
+                    print("data sent")
                     mainPeripheral?.writeValue(dataToSend!, for: mainCharacteristic!, type: CBCharacteristicWriteType.withResponse)
                 } else {
                     print("haven't discovered device yet")
@@ -267,7 +245,6 @@ if (characteristic.uuid.uuidString == BLECharacteristicW) {
             customiseNavigationBar()
         }
         
-//         manager?.cancelPeripheralConnection(mainPeripheral!)
      }
     
     

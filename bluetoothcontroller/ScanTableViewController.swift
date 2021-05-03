@@ -29,7 +29,6 @@ class ScanTableViewController: UITableViewController, CBCentralManagerDelegate, 
         definesPresentationContext = true
     }
     
-    //Jess
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -41,15 +40,10 @@ class ScanTableViewController: UITableViewController, CBCentralManagerDelegate, 
 
     // MARK: - Table view data source
     
-//    override func numberOfSections(in tableView: UITableView) -> Int {
-//        return 1
-//    }
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return peripherals.count
     }
-    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let peripheral : CBPeripheral
@@ -60,13 +54,10 @@ class ScanTableViewController: UITableViewController, CBCentralManagerDelegate, 
         
         return cell
     }
-    
-
 
         // MARK: BLE Scanning
         func scanBLEDevices() {
             manager?.scanForPeripherals(withServices: [CBUUID.init(string: parentView!.BLEService)], options: nil)
-            
             //stop scanning after 3 seconds
             DispatchQueue.main.asyncAfter(deadline: .now() + 3000) {
                 self.stopScanForBLEDevices()
@@ -87,7 +78,6 @@ class ScanTableViewController: UITableViewController, CBCentralManagerDelegate, 
               print("Peripheral name: \(peripheral.name)")
             
             manager?.connect(bluefruitPeripheral!, options: nil)
-//        manager?.connect(peripheral, options: nil)
         }
 
 
@@ -99,8 +89,6 @@ class ScanTableViewController: UITableViewController, CBCentralManagerDelegate, 
             }
             
         self.periTableView.reloadData()
-        
-        
         }
         
         func centralManagerDidUpdateState(_ central: CBCentralManager) {
@@ -119,24 +107,17 @@ class ScanTableViewController: UITableViewController, CBCentralManagerDelegate, 
                 print("central.state is .poweredOn")
                 manager?.scanForPeripherals(withServices: nil)
             }
-//            print(central.state)
         }
-    //WORKS
+    
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         print(peripheral)
         if(!peripherals.contains(peripheral)) {
             peripherals.append(peripheral)
-            print("added")
         }
         self.periTableView.reloadData()
-        
-        
-        
     }
     
-        
         func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
-            bluefruitPeripheral.discoverServices([CBUUIDs.BLEService_UUID])
             //pass reference to connected peripheral to parent view
             parentView?.mainPeripheral = peripheral
             peripheral.delegate = parentView
@@ -171,52 +152,16 @@ class ScanTableViewController: UITableViewController, CBCentralManagerDelegate, 
         }
     
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
-           
                guard let characteristics = service.characteristics else {
               return
           }
 
           print("Found \(characteristics.count) characteristics.")
-
-          for characteristic in characteristics {
-
-            if characteristic.uuid.isEqual(CBUUIDs.BLE_Characteristic_uuid_Rx)  {
-
-              rxCharacteristic = characteristic
-
-              peripheral.setNotifyValue(true, for: rxCharacteristic!)
-              peripheral.readValue(for: characteristic)
-
-              print("RX Characteristic: \(rxCharacteristic.uuid)")
-            }
-
-            if characteristic.uuid.isEqual(CBUUIDs.BLE_Characteristic_uuid_Tx){
-              
-              txCharacteristic = characteristic
-              
-              print("TX Characteristic: \(txCharacteristic.uuid)")
-            }
-          }
     }
         
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
         print(error!)
         }
-    
-//    //Jess
-////
-////    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-////        return events.count
-////    }
-////    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-////        let event : Event
-////        let cell = tableView.dequeueReusableCell(withIdentifier: "HomeCell", for: indexPath) as! HomeCell
-////            event = events[indexPath.row]
-//
-//        cell.setEvent(event: event)
-//        return cell
-//    }
-//
 
 }
 

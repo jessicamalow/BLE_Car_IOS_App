@@ -18,7 +18,6 @@
 		7E90BC6E2609CF5800C44C65 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E90BC6D2609CF5800C44C65 /* CoreBluetooth.framework */; };
 		7E90BC732609D00500C44C65 /* ScanTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E90BC722609D00500C44C65 /* ScanTableViewController.swift */; };
 		7E90BCA3260B390400C44C65 /* scanTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E90BCA2260B390400C44C65 /* scanTableCell.swift */; };
-		7E90BCAE260C149B00C44C65 /* CBUUIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E90BCAD260C149B00C44C65 /* CBUUIDs.swift */; };
 		7E90BCBA261FCA2800C44C65 /* AJoyStickViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E90BCB9261FCA2800C44C65 /* AJoyStickViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -57,7 +56,6 @@
 		7E90BC6D2609CF5800C44C65 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		7E90BC722609D00500C44C65 /* ScanTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanTableViewController.swift; sourceTree = "<group>"; };
 		7E90BCA2260B390400C44C65 /* scanTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = scanTableCell.swift; sourceTree = "<group>"; };
-		7E90BCAD260C149B00C44C65 /* CBUUIDs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBUUIDs.swift; sourceTree = "<group>"; };
 		7E90BCB226169B6F00C44C65 /* bluetoothcontroller-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "bluetoothcontroller-Bridging-Header.h"; sourceTree = "<group>"; };
 		7E90BCB9261FCA2800C44C65 /* AJoyStickViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AJoyStickViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -114,7 +112,6 @@
 			children = (
 				7E90BC392609CF3100C44C65 /* AppDelegate.swift */,
 				7E90BC3B2609CF3100C44C65 /* SceneDelegate.swift */,
-				7E90BCAD260C149B00C44C65 /* CBUUIDs.swift */,
 				7E90BC722609D00500C44C65 /* ScanTableViewController.swift */,
 				7E90BCA2260B390400C44C65 /* scanTableCell.swift */,
 				7E90BC3F2609CF3100C44C65 /* Main.storyboard */,
@@ -291,7 +288,6 @@
 				7E90BCA3260B390400C44C65 /* scanTableCell.swift in Sources */,
 				7E90BC3A2609CF3100C44C65 /* AppDelegate.swift in Sources */,
 				7E90BC3C2609CF3100C44C65 /* SceneDelegate.swift in Sources */,
-				7E90BCAE260C149B00C44C65 /* CBUUIDs.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

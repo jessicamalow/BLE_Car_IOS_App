@@ -27,7 +27,6 @@ class ScanTableViewController: UITableViewController, CBCentralManagerDelegate, 
         periTableView.delegate = self
         periTableView.dataSource = self
         definesPresentationContext = true
-        
     }
     
     //Jess

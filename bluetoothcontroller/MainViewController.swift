@@ -15,14 +15,27 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
     @IBOutlet var joystickUI: UIView!
     //Join stick END
     static let notificationName = Notification.Name("Joystick")
+    //Auto light begin
     
+    @IBAction func autolightswitch(_ sender: UISwitch) {
+        if (sender.isOn == true) {
+            light.isEnabled = false;
+            writeOutgoingValue(data: "auto")
+        } else {
+            light.isEnabled = true;
+            writeOutgoingValue(data: "autooff")
+        }
+    }
+    //Auto light end
     
     var manager:CBCentralManager? = nil
     var mainPeripheral:CBPeripheral? = nil
     var mainCharacteristic:CBCharacteristic? = nil
+    var mainCharacteristicW:CBCharacteristic? = nil
     
     let BLEService = "6E400001-B5A3-F393-E0A9-E50E24DCCA9E"
     let BLECharacteristic = "6E400002-B5A3-F393-E0A9-E50E24DCCA9E"
+    let BLECharacteristicW = "6E400003-B5A3-F393-E0A9-E50E24DCCA9E"
     
     // MARK: - CBCentralManagerDelegate Methods
 //    func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
@@ -65,7 +78,9 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
         
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         print(service.characteristics![0])
-        print(mainCharacteristic == service.characteristics![0])
+        //Found service
+        print(service.characteristics![1])
+//        print(mainCharacteristic == service.characteristics![0])
             //get device name
 //            if (service.uuid.uuidString == BLEService) {
                 
@@ -82,12 +97,43 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
                         print("setNotify")
                         print("Found Bluno Data Characteristic")
                     }
+                    if (characteristic.uuid.uuidString == BLECharacteristicW) {
+                        //we'll save the reference, we need it to write data
+                        
+                        mainCharacteristicW = characteristic
+                        
+                        //Set Notify is useful to read incoming data async
+                        
+                        peripheral.setNotifyValue(true, for: characteristic)
+                        print("setNotify")
+                        print("Found Bluno Data Characteristic")
+                    }
                     
                 }
                 
 //            }
             
         }
+    //Encoder
+    func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
+        var characteristicASCIIValue = NSString()
+   
+        guard characteristic == mainCharacteristicW,
+   
+        let characteristicValue = characteristic.value,
+        let ASCIIstring = NSString(data: characteristicValue, encoding: String.Encoding.utf8.rawValue) else { return }
+   
+        characteristicASCIIValue = ASCIIstring
+   
+        print("Value Recieved: \((characteristicASCIIValue as String))")
+if (characteristic.uuid.uuidString == BLECharacteristicW) {
+                //data recieved
+                if(characteristic.value != nil) {
+                    let stringValue = String(data: characteristic.value!, encoding: String.Encoding.utf8)!
+                
+                    message.text = stringValue
+                }        }
+    }
         
 
     
@@ -103,18 +149,29 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
               }
           }
       }
+    
+    func readIncomingValue() {
+        
+        if let bluefruitPeripheral = mainPeripheral {
+              
+          if let rxCharacteristic = mainCharacteristicW {
+                  
+            bluefruitPeripheral.readValue(for: rxCharacteristic)
+              }
+          }
+      }
 
 
     @IBAction func sendHelloTapped(_ sender: Any) {
-        writeOutgoingValue(data: "Hello World")
-        mainPeripheral!.discoverServices([CBUUIDs.BLEService_UUID])
+        writeOutgoingValue(data: "honk")
+//        mainPeripheral!.discoverServices([CBUUIDs.BLEService_UUID])
         
-        let helloWorld = "Hello World!"
-                let dataToSend = helloWorld.data(using: String.Encoding.utf8)
-//        mainCharacteristic = "beb5483e-36e1-4688-b7f5-ea07361b26a8"
+        let honk = "honk"
+                let dataToSend = honk.data(using: String.Encoding.utf8)
                 if (mainPeripheral != nil) {
                     print("datasent")
-                    print(mainCharacteristic)
+//                    print(mainCharacteristic)
+//                    print(mainCharacteristicW)
                     mainPeripheral?.writeValue(dataToSend!, for: mainCharacteristic!, type: CBCharacteristicWriteType.withResponse)
                 } else {
                     print("haven't discovered device yet")

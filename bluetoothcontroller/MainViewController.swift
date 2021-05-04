@@ -188,6 +188,7 @@ if (characteristic.uuid.uuidString == BLECharacteristicW) {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        light.isEnabled = false;
         joystickUI.layer.cornerRadius = 75
         // Do any additional setup after loading the view.
         manager = CBCentralManager(delegate: self, queue: nil)

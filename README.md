@@ -61,6 +61,8 @@ on the car. The bottom button is the joystick which is able to move in the circl
 the car in the direction that the button is dragged to.
 
 ## How to Set Up Car
+Load the code in <a href="/ESP32_BLE_UART/LED_BLE_uart.ino"> ESP32_BLE_UART/LED_BLE_uart.ino </a>  into the ESP32 microcontroller. 
+
 ### Parts List
 
 **· Adafruit Feather HUZZAH ESP32**

@@ -8,7 +8,7 @@ A BLE JoyStick Car Controller
 ## Description
 The Bluetooth Low Energy Car IOS App is an app that allows users with 
 IOS 12.4 and higher to connect through Bluetooth Low Energy 
-(BLE)to an ESP32 in order to send commands to prompt movement 
+(BLE) to an ESP32 in order to send commands to prompt movement 
 of a ESP32 car with a custom JoyStick controller button, to 
 make a honk sound with the honk button, and to turn on and 
 off car lights with light button or turn on automated lights 

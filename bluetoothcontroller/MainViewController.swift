@@ -37,12 +37,12 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
     let BLECharacteristic = "6E400002-B5A3-F393-E0A9-E50E24DCCA9E"
     let BLECharacteristicW = "6E400003-B5A3-F393-E0A9-E50E24DCCA9E"
     
-    // MARK: - CBCentralManagerDelegate Methods
+
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         print(central.state)
     }
     
-    // MARK: CBPeripheralDelegate Methods
+
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
             
             for service in peripheral.services! {
@@ -122,22 +122,22 @@ if (characteristic.uuid.uuidString == BLECharacteristicW) {
           
         let valueString = (data as NSString).data(using: String.Encoding.utf8.rawValue)
         
-        if let bluefruitPeripheral = mainPeripheral {
+        if let adafruitPeripheral = mainPeripheral {
               
           if let txCharacteristic = mainCharacteristic {
                   
-            bluefruitPeripheral.writeValue(valueString!, for: txCharacteristic, type: CBCharacteristicWriteType.withResponse)
+            adafruitPeripheral.writeValue(valueString!, for: txCharacteristic, type: CBCharacteristicWriteType.withResponse)
               }
           }
       }
     
     func readIncomingValue() {
         
-        if let bluefruitPeripheral = mainPeripheral {
+        if let adafruitPeripheral = mainPeripheral {
               
           if let rxCharacteristic = mainCharacteristicW {
                   
-            bluefruitPeripheral.readValue(for: rxCharacteristic)
+            adafruitPeripheral.readValue(for: rxCharacteristic)
               }
           }
       }
@@ -175,7 +175,7 @@ if (characteristic.uuid.uuidString == BLECharacteristicW) {
         print(notification.userInfo!)
         let currtime = Date.init()
         typealias TimeInterval = Double
-        var daty = lasttime + timepassed
+        let daty = lasttime + timepassed
         if ((daty < currtime) || (notification.userInfo!["position"] as! String == "0,0")) {
             writeOutgoingValue(data: notification.userInfo!["position"] as! String)
             lasttime = currtime
@@ -231,7 +231,6 @@ if (characteristic.uuid.uuidString == BLECharacteristicW) {
          
      }
      
-     // MARK: Button Methods
     @objc func scanButtonPressed() {
          performSegue(withIdentifier: "scan-segue", sender: nil)
      }

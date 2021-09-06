@@ -16,7 +16,7 @@ class ScanTableViewController: UITableViewController, CBCentralManagerDelegate, 
     var peripherals:[CBPeripheral] = []
     var manager:CBCentralManager? = nil
     var parentView:MainViewController? = nil
-    private var bluefruitPeripheral: CBPeripheral!
+    private var adafruitPeripheral: CBPeripheral!
     
     private var txCharacteristic: CBCharacteristic!
     private var rxCharacteristic: CBCharacteristic!
@@ -38,7 +38,7 @@ class ScanTableViewController: UITableViewController, CBCentralManagerDelegate, 
             scanBLEDevices()
         }
 
-    // MARK: - Table view data source
+
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
@@ -55,7 +55,6 @@ class ScanTableViewController: UITableViewController, CBCentralManagerDelegate, 
         return cell
     }
 
-        // MARK: BLE Scanning
         func scanBLEDevices() {
             manager?.scanForPeripherals(withServices: [CBUUID.init(string: parentView!.BLEService)], options: nil)
             //stop scanning after 3 seconds
@@ -71,17 +70,17 @@ class ScanTableViewController: UITableViewController, CBCentralManagerDelegate, 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
             let peripheral = peripherals[indexPath.row]
         
-        bluefruitPeripheral = peripheral
-            bluefruitPeripheral.delegate = self
+        adafruitPeripheral = peripheral
+            adafruitPeripheral.delegate = self
          
             print("Peripheral Discovered: \(peripheral)")
-              print("Peripheral name: \(peripheral.name)")
+        print("Peripheral name: \(peripheral.name ?? "unknown")")
             
-            manager?.connect(bluefruitPeripheral!, options: nil)
+            manager?.connect(adafruitPeripheral!, options: nil)
         }
 
 
-        // MARK: - CBCentralManagerDelegate Methods
+
     private func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : AnyObject], rssi RSSI: NSNumber) {
             
             if(!peripherals.contains(peripheral)) {
@@ -106,6 +105,8 @@ class ScanTableViewController: UITableViewController, CBCentralManagerDelegate, 
               case .poweredOn:
                 print("central.state is .poweredOn")
                 manager?.scanForPeripherals(withServices: nil)
+            @unknown default:
+                print("Unknown")
             }
         }
     

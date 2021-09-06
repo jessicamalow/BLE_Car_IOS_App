@@ -1,4 +1,4 @@
-# Bluetooth_Car_IOS_App
+# BLE_Car_IOS_App
 A BLE JoyStick Car Controller
 
 
@@ -6,7 +6,7 @@ A BLE JoyStick Car Controller
 
 
 ## Description
-The Bluetooth Car IOS App is an app that allows users with 
+The Bluetooth Low Energy Car IOS App is an app that allows users with 
 IOS 12.4 and higher to connect through Bluetooth Low Energy 
 (BLE)to an ESP32 in order to send commands to prompt movement 
 of a ESP32 car with a custom JoyStick controller button, to 
@@ -60,9 +60,66 @@ honk noise when connected to a speaker. Below that is the speed, which reads the
 on the car. The bottom button is the joystick which is able to move in the circle to drive
 the car in the direction that the button is dragged to.
 
+## How to Set Up Car
+### Parts List
+
+**· Adafruit Feather HUZZAH ESP32**
+
+     This microcontroller provides the Bluetooth Low Energy functionality needed to control the car as well as read the ambient light sensor, control the LED, and play sounds.
+
+**· LM317KCT – 3.3V Voltage Regulator**
+
+     The voltage regulator is used to output a steady 3.3V voltage from the 9V battery to power the positive terminal. The ambient light sensor and encoders require this voltage source.
+
+**· 2x DC Motors**
+
+     The DC Motors are able to turn in both directions with the connection to the Motor driver and receive power from the 9V battery.
+
+**· 2x 9V Batteries**
+
+     The 9V batteries power the motors and provide the voltage for the 3.3V Voltage regulator connected to the positive terminal.
+
+**· Lithium Ion Polymer Battery**
+
+     The rechargeable battery powers the ESP32
+
+**· Pololu Dual Motor Driver DRV8833**
+
+     The motor driver provides 1.2 A to two DC motors and has an operating voltage from 2.7V to 10.8V that allows it to power low voltage motors. The motor driver protects against voltage and current instabilities.
+
+**· Ambient Light Sensor [Phototransistor]**
+
+     The ESP32 receives voltage amounts based on the amount of light detected and maps them to a range of values. When there is no light, 0 volts is detected. For this project, if the voltage read was mapped to a value less than 80 and the autolight feature was turned on, the ESP32 would turn on the LED. If the voltage was mapped to a value that was greater than or equal to 80 and the autolight feature was turned on, the light would turn off. If the autolight feature was turned off on the IOS app, then the ambient light sensor would not be read.
+
+**· 1x LED**
+
+     The LED is used to give the car light when the area is dark. If the autolight feature is shut off, then the ambient light sensor will not be read and the LED can be controlled through a button on the IOS app.
+
+**· Resistors: 4x 1kΩ Resistors, 3x 2kΩ Resistors, 1x 1.5kΩ Resistor, 1x 100kΩ Resistor, 1x 220Ω Resistor**
+
+**· 2x 0.1 microFarads 104 Capacitor K104K15X7RF53K2**
+
+**· 1x 10 microFarads 106 Capacitor FK16X7R1C106K**
+
+**· 1x 1 microFard 105 Capacitor C330C105K5R5TA**
+
+**· 1x Yootop 1W 8Ω Round Internal Magnet Mini Loudspeaker**
+
+     The speaker is used to give the toy car the ability to honk. When a button on the Bluetooth app is pressed, the ESP32 will play the horn.
+
+**· 2x Encoders H206 Opto-Coupler Speed Sensor**
+
+     The encoders measure the wheel rotations by measuring light that appears through the 20 slits on the wheel. This data was used to calculate the speed in mm/ms and then display the speed on the Bluetooth IOS app.
+
+**· Caster Wheel and Two Plastic Car Tires**
+
+**· Chassis**
+
+
+### Circuit Diagram
+<img src="/ImagesofApp/ESP32CircuitDiagram.png"  height="500">
 
 ## Credits
-
 
 
 <a href="https://github.com/jessicamalow">
